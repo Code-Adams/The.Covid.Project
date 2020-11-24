@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">The.Covid.Project</string>
+    <string name="Phone">Phone</string>
+    <string name="Submit">Submit</string>
+    <string name="Generate_OTP">Generate OTP</string>
+    <string name="countryCode">+91</string>
+    <string name="OTP">OTP</string>
+    <string name="Verify_OTP">Verify OTP</string>
+    <string name="Multiple_Empty_Field">One or more fields are empty.</string>
 </resources>
