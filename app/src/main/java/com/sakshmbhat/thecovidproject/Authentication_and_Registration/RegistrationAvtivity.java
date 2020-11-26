@@ -56,7 +56,7 @@ public class RegistrationAvtivity extends AppCompatActivity {
     private RelativeLayout relativeLayoutContainingSpinner;
     private TextView clickToAddImage;
     private CircleImageView   circleImageView;
-
+int test;
     Dialog dialog;
 
     private  final int REQ=1;
