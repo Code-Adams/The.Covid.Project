@@ -1,10 +1,24 @@
+
 <resources>
     <string name="app_name">The.Covid.Project</string>
-    <string name="Phone">Phone</string>
+    <string name="Phone">Phone no.</string>
     <string name="Submit">Submit</string>
     <string name="Generate_OTP">Generate OTP</string>
     <string name="countryCode">+91</string>
     <string name="OTP">OTP</string>
     <string name="Verify_OTP">Verify OTP</string>
     <string name="Multiple_Empty_Field">One or more fields are empty.</string>
+    <string name="Resend_OTP">Resend OTP</string>
+    <string name="Get_OTP">Get OTP</string>
+    <string name="Verify_Number">Verify Number</string>
+    <string name="OTP_Sent">OTP Sent</string>
+    <string name="Counter_Hint">00:00</string>
+    <string name="Welcome">WELCOME</string>
+    <string name="Registration_Text">Authentication is successful.<br/>We need some information to get this application ready!!<br/>Fill in the details below:</string>
+    <string name="First_Name">First Name</string>
+    <string name="Last_Name">Last Name</string>
+    <string name="Address">Address</string>
+    <string name="Apartment_Number">Apartment no.</string>
+    <string name="DOB">DOB: dd/mm/yyyy</string>
+    <string name="Click_To_Add_Image">+Click to add image</string>
 </resources>
