@@ -6,9 +6,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 
@@ -31,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
      private FirebaseUser mCurrentUser;
      private DatabaseReference databaseReference;
     private FloatingActionButton mfab;
+    private Button call,ignore;
+    private TextView fakeTextForUid,getFakeTextForPhonenumber;
     RecyclerView mrecyclerView;
     DatabaseReference rootref;
     Query queryCurrentDepartment;
@@ -38,8 +43,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        fakeTextForUid=findViewById(R.id.fakeTextUid);
+        getFakeTextForPhonenumber=findViewById(R.id.fakeTextPhoneNumber);
+        mAuth= FirebaseAuth.getInstance();
+        mCurrentUser= mAuth.getCurrentUser();
+
         rootref=FirebaseDatabase.getInstance().getReference().child("Requests");
         queryCurrentDepartment=rootref.orderByChild("Department_Name").equalTo("A");
+
+        call=findViewById(R.id.callPerson);
+        ignore=findViewById(R.id.ignoreRequestButton);
         mfab=findViewById(R.id.myfab);
         mrecyclerView=(RecyclerView)findViewById(R.id.Unique_work_assigned);
         mrecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -52,10 +66,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callPersonMethod();
+            }
+        });
 
 
-        mAuth= FirebaseAuth.getInstance();
-        mCurrentUser= mAuth.getCurrentUser();
+
+    }
+
+    private void callPersonMethod() {
+
+        String phoneNumber = getFakeTextForPhonenumber.getText().toString().trim();
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:"+phoneNumber));
+        startActivity(intent);
 
     }
 
@@ -115,17 +142,17 @@ public class MainActivity extends AppCompatActivity {
         }
         void setDepartmentName(String dname)
         {
-            TextView t1=myview.findViewById(R.id.Assigned_itemName);
+            TextView t1=myview.findViewById(R.id.departmentDisplay);
             t1.setText(dname);
         }
         void setItemName(String dname)
         {
-            TextView t2=myview.findViewById(R.id.Assigned_itemQuantity);
+            TextView t2=myview.findViewById(R.id.productDisplay);
             t2.setText(dname);
         }
         void setQuantity(String dname)
         {
-            TextView t3=myview.findViewById(R.id.AssignedBy);
+            TextView t3=myview.findViewById(R.id.quantityDisplay);
             t3.setText(dname);
         }
     }

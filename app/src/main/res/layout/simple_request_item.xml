@@ -1,46 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="10dp"
     android:elevation="400dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <RelativeLayout
+
+<!--    Fake TextView to store user Id of rqquest creater-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            android:id="@+id/fakeTextUid"/>
+    <!--    Fake TextView to store user Id of rqquest creater-->
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:id="@+id/fakeTextPhoneNumber"/>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/userImage"
-            android:src="@drawable/userimagehackovid"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:weightSum="20"
+        android:orientation="horizontal">
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_margin="8dp"
-            android:text="Department Name"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_toEndOf="@+id/userImage"
-            android:id="@+id/Assigned_itemName"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:paddingStart="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="#2458F3"
+                    android:textSize="20sp"
+                    android:text="@string/Dept"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="#B30003"
+                    android:paddingStart="20sp"
+                    android:textSize="20sp"
+                    android:id="@+id/departmentDisplay"
+                    android:hint="@string/Department"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="#2458F3"
+                    android:text="@string/Product"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="#B30003"
+                    android:paddingStart="20sp"
+                    android:textSize="20sp"
+                    android:inputType="textMultiLine"
+                    android:id="@+id/productDisplay"
+                    android:hint="@string/Product_Name"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="#2458F3"
+                    android:text="@string/Quantity"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="#B30003"
+                    android:paddingStart="20sp"
+                    android:textSize="20sp"
+                    android:id="@+id/quantityDisplay"
+                    android:hint="@string/Quantity"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_call"
+                    android:text="@string/Call"
+                    android:id="@+id/callPerson"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Ignore"
+                    android:layout_marginLeft="30dp"
+                    android:id="@+id/ignoreRequestButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_margin="8dp"
-            android:text="Item Name"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_toEndOf="@+id/userImage"
-            android:layout_below="@+id/Assigned_itemName"
-            android:id="@+id/Assigned_itemQuantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_margin="8dp"
-            android:text="Quantity"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_toEndOf="@+id/userImage"
-            android:layout_below="@+id/Assigned_itemQuantity"
-            android:id="@+id/AssignedBy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/userPicDisplay"
+                android:layout_weight="15dp"
+                android:layout_width="150dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/user"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/nameOfRequestgenerator"
+                android:hint="@string/Name"
+                android:textStyle="italic"
+                android:textSize="15sp"
+                android:textAlignment="center"
+                style="@style/Widget.MaterialComponents.TextView"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 </androidx.cardview.widget.CardView>
