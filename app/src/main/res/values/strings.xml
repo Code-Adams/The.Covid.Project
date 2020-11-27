@@ -26,6 +26,13 @@
         <string name="Apartment_Number">Apartment no.</string>
         <string name="DOB">DOB: dd/mm/yyyy</string>
         <string name="Click_To_Add_Image">+Click to add image</string>
-
+        <string name="Dept">Dept:</string>
+        <string name="Department">Department</string>
+        <string name="Product">Product:</string>
+        <string name="Product_Name">Product Name</string>
+        <string name="Quantity">Quantity:</string>
+        <string name="Call">Call</string>
+        <string name="Ignore">Ignore</string>
+    <string name="Name">Name</string>
 
 </resources>
