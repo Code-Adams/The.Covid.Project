@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +30,8 @@ public class AddRequest extends AppCompatActivity implements AdapterView.OnItemS
     DatabaseReference mref;
     DatabaseReference mdep;
     TextView textView;
-    String depto="",request_key="",newReq="";
+    String depto="",request_key="",newReq="",uid="",phone="";
+    FirebaseAuth mauth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,8 @@ public class AddRequest extends AppCompatActivity implements AdapterView.OnItemS
         AddBtn=findViewById(R.id.AddToDatabase);
         mdep=FirebaseDatabase.getInstance().getReference().child("Departments");
         mref=FirebaseDatabase.getInstance().getReference();
+        mauth=FirebaseAuth.getInstance();
+        uid=mauth.getCurrentUser().getUid();
         AddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +62,21 @@ public class AddRequest extends AppCompatActivity implements AdapterView.OnItemS
                 mref.child("Requests").child(request_key).child("Item_Name").setValue(mitemName);
                 mref.child("Requests").child(request_key).child("Item_Quantity").setValue(mitemQuantity);
                 mref.child("Requests").child(request_key).child("Department_Name").setValue(depto);
+                mref.child("Requests").child(request_key).child("Generator").setValue(uid);
+                mref.child("Requests").child(request_key).child("Status").setValue("0");
+                DatabaseReference temp=mref.child("Users").child(uid);
+                temp.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        phone=snapshot.child("phoneNumber").getValue().toString();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                mref.child("Requests").child(request_key).child("phoneNumber").setValue(phone);
                 newReq="Request Number "+new Random().nextInt(100000);
                 DatabaseReference mref2=mdep.child(depto).child("Pending_requests").child(newReq);
                 mref2.setValue(request_key);
