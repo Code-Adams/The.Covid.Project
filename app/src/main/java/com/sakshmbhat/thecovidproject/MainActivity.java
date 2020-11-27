@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        //mAuth= FirebaseAuth.getInstance();
-        //mCurrentUser= mAuth.getCurrentUser();
+        mAuth= FirebaseAuth.getInstance();
+        mCurrentUser= mAuth.getCurrentUser();
 
     }
 
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        /*if(mCurrentUser==null)
+        if(mCurrentUser==null)
         {
             //Send user to phone login activity
             Intent intent= new Intent(MainActivity.this, PhoneNumberActivity.class);
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });*/
+        });
         FirebaseRecyclerAdapter<simpleRequest,RequestViewHolder> adapter=new FirebaseRecyclerAdapter<simpleRequest, RequestViewHolder>(
                 simpleRequest.class,
                 R.layout.simple_request_item,

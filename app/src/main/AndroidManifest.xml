@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TheCovidProject">
-        <activity android:name=".AddRequest"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".AddRequest"/>
+        <activity android:name=".Authentication_and_Registration.RegistrationAvtivity"/>
+        <activity android:name="com.sakshmbhat.thecovidproject.Authentication_and_Registration.PhoneNumberActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
