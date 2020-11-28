@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".UserProfileActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/userPicEdit"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:civ_border_width="2dp"
+                android:layout_marginTop="25dp"
+                android:layout_gravity="center"
+                android:src="@drawable/user"
+                app:civ_border_color="#FF000000"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:id="@+id/clickToAddImageEdit"
+                android:text="@string/Click_To_Add_Image"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="30dp"
+                android:paddingBottom="12.5dp"
+                android:paddingHorizontal="10dp"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/First_Name"
+                    android:id="@+id/firstNameEdit"
+                    android:inputType="textPersonName"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="12.5dp"
+                android:paddingBottom="12.5dp"
+                android:paddingHorizontal="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/Last_Name"
+                    android:id="@+id/lastNameEdit"
+                    android:inputType="textPersonName"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="12.5dp"
+                android:paddingBottom="12.5dp"
+                android:paddingHorizontal="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/birthDayEdit"
+                    android:hint="@string/DOB"
+                    android:focusable="false"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/relativeLayoutWithSpinnerEdit"
+                android:gravity="top|start"
+                >
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:id="@+id/deptCategorySpinnerEdit"
+                    android:spinnerMode="dropdown"
+                    android:visibility="visible"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="12.5dp"
+                    android:layout_marginBottom="12.5dp"/>
+
+                <!-- Fake TextView to use to set in an error state to allow an error to be shown for the TextView -->
+                <android.widget.TextView
+                    android:id="@+id/tvInvisibleError"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_alignEnd="@+id/deptCategorySpinnerEdit"
+                    android:layout_alignBottom="@+id/deptCategorySpinnerEdit"
+                    android:layout_marginTop="0dp"
+                    android:paddingTop="0dp"
+                    android:paddingRight="50dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    />
+
+            </RelativeLayout>
+
+
+            <!--            &lt;!&ndash; Fake TextView to use to set in an error state to allow an error to be shown for the TextView &ndash;&gt;-->
+            <!--            <android.widget.TextView-->
+            <!--                android:id="@+id/tvInvisibleError"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="0dp"-->
+            <!--                android:layout_alignRight="@+id/spnMySpinner"-->
+            <!--                android:layout_alignBottom="@+id/spnMySpinner"-->
+            <!--                android:layout_marginTop="0dp"-->
+            <!--                android:paddingTop="0dp"-->
+            <!--                android:paddingRight="50dp"-->
+            <!--                android:focusable="true"-->
+            <!--                android:focusableInTouchMode="true"-->
+            <!--                />-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="12.5dp"
+                android:paddingBottom="12.5dp"
+                android:paddingHorizontal="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/Phone"
+                    android:id="@+id/phoneNumberEdit"
+                    android:inputType="phone"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="12.5dp"
+                android:paddingBottom="12.5dp"
+                android:paddingHorizontal="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/Address"
+                    android:id="@+id/addressEdit"
+                    android:inputType="textPostalAddress"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="12.5dp"
+                android:paddingBottom="12.5dp"
+                android:paddingHorizontal="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/Apartment_Number"
+                    android:id="@+id/apartmentNoEdit"
+                    android:inputType="textCapSentences"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:weightSum="2"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Cancel"
+                    android:textAllCaps="false"
+                    android:paddingHorizontal="30dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/cancelBtn"/>
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="0dp"
+                    android:layout_height="@android:dimen/app_icon_size"
+                    android:layout_weight="1"
+                    android:layout_marginStart="117dp"
+                    android:text="@string/Save_Changes"
+                    android:textAllCaps="false"
+                    android:paddingHorizontal="30dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/saveChangesBtn"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+</RelativeLayout>

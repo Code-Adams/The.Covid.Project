@@ -56,6 +56,22 @@ public class PhoneNumberActivity extends AppCompatActivity {
 
         initialiseElements();
 
+        getOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getotpOnclick();
+            }
+        });
+        verifyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                loginOnClick();
+
+            }
+        });
+        verifyBtn.setTextColor(Color.parseColor("#C0BEBE"));
+
 
     }
 
@@ -75,21 +91,7 @@ public class PhoneNumberActivity extends AppCompatActivity {
         ccp=(CountryCodePicker)findViewById(R.id.countrycodepicker);
         ccp.registerCarrierNumberEditText(phoneNumber);
 
-        getOTP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                  getotpOnclick();
-            }
-        });
-        verifyBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                loginOnClick();
-
-            }
-        });
-        verifyBtn.setTextColor(Color.parseColor("#C0BEBE"));
 
     }
 
@@ -147,10 +149,11 @@ public class PhoneNumberActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()){
-                            mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+                            mCurrentUser = mAuth.getCurrentUser();
                             if (mCurrentUser !=null){
 
-                                Intent i = new Intent(PhoneNumberActivity.this,MainActivity.class);
+                                //dialog.dismiss();
+                                Intent i = new Intent(getApplicationContext(),MainActivity.class);
                                 startActivity(i);
                                 finish();
 

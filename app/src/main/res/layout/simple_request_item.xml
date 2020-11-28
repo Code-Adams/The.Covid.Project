@@ -3,16 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="10dp"
     android:elevation="400dp"
+    android:id="@+id/requestCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-<!--    Fake TextView to store user Id of rqquest creater-->
+<!--    Fake TextView to store user Id of request creator-->
         <TextView
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:visibility="gone"
             android:id="@+id/fakeTextUid"/>
-    <!--    Fake TextView to store user Id of rqquest creater-->
+    <!--    Fake TextView to store phone number of request creator-->
     <TextView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -73,15 +74,15 @@
                     android:text="@string/Product"/>
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textColor="#B30003"
-                    android:paddingStart="20sp"
-                    android:textSize="20sp"
-                    android:inputType="textMultiLine"
                     android:id="@+id/productDisplay"
-                    android:hint="@string/Product_Name"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="59dp"
+                    android:hint="@string/Product_Name"
+                    android:inputType="textMultiLine"
+                    android:paddingStart="20sp"
+                    android:textColor="#B30003"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -119,12 +120,12 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_call"
-                    android:text="@string/Call"
                     android:id="@+id/callPerson"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="33dp"
+                    android:drawableLeft="@drawable/ic_call"
+                    android:text="@string/Call" />
 
                 <com.google.android.material.button.MaterialButton
                     android:layout_width="wrap_content"
@@ -146,7 +147,7 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/userPicDisplay"
-                android:layout_weight="15dp"
+                android:layout_weight="15"
                 android:layout_width="150dp"
                 android:layout_height="120dp"
                 android:layout_marginTop="25dp"

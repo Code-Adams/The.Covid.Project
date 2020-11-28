@@ -1,6 +1,7 @@
 package com.sakshmbhat.thecovidproject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -10,11 +11,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +33,8 @@ public class AddRequest extends AppCompatActivity implements AdapterView.OnItemS
     DatabaseReference mref;
     DatabaseReference mdep;
     TextView textView;
-    String depto="",request_key="",newReq="",uid="",phone="";
+    ProgressBar progressBar;
+    String depto="",request_key="",newReq="",uid="",phone="",creatorName="",imageUrl="";
     FirebaseAuth mauth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +52,13 @@ public class AddRequest extends AppCompatActivity implements AdapterView.OnItemS
         mdep=FirebaseDatabase.getInstance().getReference().child("Departments");
         mref=FirebaseDatabase.getInstance().getReference();
         mauth=FirebaseAuth.getInstance();
-        uid=mauth.getCurrentUser().getUid();
+        uid=mauth.getCurrentUser().getUid().trim();
+
+
         AddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String mitemName=ItemName.getText().toString().trim();
                 String mitemQuantity=Quantity.getText().toString().trim();
                 if(TextUtils.isEmpty(mitemName)||TextUtils.isEmpty(mitemQuantity))
@@ -64,11 +71,24 @@ public class AddRequest extends AppCompatActivity implements AdapterView.OnItemS
                 mref.child("Requests").child(request_key).child("Department_Name").setValue(depto);
                 mref.child("Requests").child(request_key).child("Generator").setValue(uid);
                 mref.child("Requests").child(request_key).child("Status").setValue("0");
-                DatabaseReference temp=mref.child("Users").child(uid);
-                temp.addValueEventListener(new ValueEventListener() {
+
+
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+
+                databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        phone=snapshot.child("phoneNumber").getValue().toString();
+                        if(snapshot.exists()) {
+                            phone = snapshot.child("phoneNumber").getValue().toString();
+                            creatorName=snapshot.child("firstName").getValue().toString().trim() +" "+snapshot.child("lastName").getValue().toString().trim();
+                            imageUrl=snapshot.child("imageUrl").getValue().toString().trim();
+                            mref.child("Requests").child(request_key).child("imageUrl").setValue(imageUrl);
+                            mref.child("Requests").child(request_key).child("phoneNumber").setValue(phone);
+                            mref.child("Requests").child(request_key).child("creatorName").setValue(creatorName);
+                        }
+                        else{
+
+                        }
                     }
 
                     @Override
@@ -76,8 +96,9 @@ public class AddRequest extends AppCompatActivity implements AdapterView.OnItemS
 
                     }
                 });
-                mref.child("Requests").child(request_key).child("phoneNumber").setValue(phone);
-                newReq="Request Number "+new Random().nextInt(100000);
+
+
+                newReq="Request Number"+new Random().nextInt(100000);
                 DatabaseReference mref2=mdep.child(depto).child("Pending_requests").child(newReq);
                 mref2.setValue(request_key);
             }

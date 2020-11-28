@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_margin="9dp"
-        android:id="@+id/Unique_work_assigned"
+        android:padding="9dp"
+        android:id="@+id/requestRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton

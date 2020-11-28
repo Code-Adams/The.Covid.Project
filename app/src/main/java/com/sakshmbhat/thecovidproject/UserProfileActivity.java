@@ -1,4 +1,4 @@
-package com.sakshmbhat.thecovidproject.Authentication_and_Registration;
+package com.sakshmbhat.thecovidproject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,7 +9,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -21,7 +20,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -38,24 +36,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.sakshmbhat.thecovidproject.MainActivity;
-import com.sakshmbhat.thecovidproject.R;
+import com.sakshmbhat.thecovidproject.Authentication_and_Registration.RegistrationAvtivity;
+import com.sakshmbhat.thecovidproject.Authentication_and_Registration.setDate;
+import com.sakshmbhat.thecovidproject.Authentication_and_Registration.userData;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RegistrationAvtivity extends AppCompatActivity {
-
+public class UserProfileActivity extends AppCompatActivity {
     private Spinner department;
     private EditText editTextFromDate,firstNameField,lastNameField,addressField,phoneNumberField,apartmentnumberField;
-    private Button submit;
+    private Button saveInfo,cancel;
     private String deptSelected;
     Boolean ageLessThanSixty=false;
     private RelativeLayout relativeLayoutContainingSpinner;
     private TextView clickToAddImage;
-    private CircleImageView   circleImageView;
+    private CircleImageView circleImageView;
 
     Dialog dialog;
 
@@ -71,31 +69,21 @@ public class RegistrationAvtivity extends AppCompatActivity {
     private StorageReference storageReference;
     private DatabaseReference databaseReference,dbRef;
 
-   private String firstName;
-   private String lastName;
-   private String dob;
-   private String phoneNumber;
-   private String address;
-   private String apartment;
-   private String downloadUrl="";
+    private String firstName;
+    private String lastName;
+    private String dob;
+    private String phoneNumber;
+    private String address;
+    private String apartment;
+    private String downloadUrl="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration);
+        setContentView(R.layout.activity_user_profile);
 
         initialiseParameters();
         setSpinner();
-        Toast.makeText(this, mCurrentUser.getUid(), Toast.LENGTH_SHORT).show();
-        department.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                deptSelected = department.getSelectedItem().toString();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
 
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,46 +98,40 @@ public class RegistrationAvtivity extends AppCompatActivity {
                 openGallery();
             }
         });
-        submit.setOnClickListener(new View.OnClickListener() {
+
+        department.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                deptSelected = department.getSelectedItem().toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                verifyDataFields();
+                goToMainActivity();
+
+            }
+        });
+
+        saveInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verifyUserData();
             }
         });
     }
 
-    private void initialiseParameters() {
+    private void verifyUserData() {
 
-
-        department=findViewById(R.id.deptCategorySpinner);
-        editTextFromDate= findViewById(R.id.birthDay);
-        firstNameField=findViewById(R.id.firstName);
-        lastNameField=findViewById(R.id.lastName);
-        addressField=findViewById(R.id.address);
-        phoneNumberField=findViewById(R.id.phoneNumber);
-        apartmentnumberField=findViewById(R.id.apartmentNo);
-        submit=findViewById(R.id.submitBtn);
-        relativeLayoutContainingSpinner=findViewById(R.id.relativeLayoutWithSpinner);
-        clickToAddImage=findViewById(R.id.clickToAddImage);
-        circleImageView=findViewById(R.id.userPic);
-
-        storageReference= FirebaseStorage.getInstance().getReference();
-        databaseReference= FirebaseDatabase.getInstance().getReference();
-        mAuth= FirebaseAuth.getInstance();
-        mCurrentUser= mAuth.getCurrentUser();
-        //Setting calender on edit text
-        setDate DOB= new setDate(editTextFromDate,relativeLayoutContainingSpinner,RegistrationAvtivity.this);
-
-    }
-
-    private void verifyDataFields() {
-
-         firstName=firstNameField.getText().toString().trim();
-         lastName=lastNameField.getText().toString().trim();
-         dob = editTextFromDate.getText().toString().trim();
-         phoneNumber=phoneNumberField.getText().toString().trim();
-         address=addressField.getText().toString().trim();
-         apartment=apartmentnumberField.getText().toString().trim();
+        firstName=firstNameField.getText().toString().trim();
+        lastName=lastNameField.getText().toString().trim();
+        dob = editTextFromDate.getText().toString().trim();
+        phoneNumber=phoneNumberField.getText().toString().trim();
+        address=addressField.getText().toString().trim();
+        apartment=apartmentnumberField.getText().toString().trim();
 
         if(firstName.isEmpty()){
             firstNameField.setError("First name required!");
@@ -161,9 +143,9 @@ public class RegistrationAvtivity extends AppCompatActivity {
             editTextFromDate.setError("Birthday required!");
             editTextFromDate.requestFocus();
         }else if(checkAge(dob)&&deptSelected.equals("Select Department")){
-                       SetError("Please choose a department!");
-                Toast.makeText(RegistrationAvtivity.this, phoneNumber, Toast.LENGTH_SHORT).show();
-                // ((TextView)department.getChildAt(0)).setError("Message");
+            SetError("Please choose a department!");
+            Toast.makeText(UserProfileActivity.this, phoneNumber, Toast.LENGTH_SHORT).show();
+            // ((TextView)department.getChildAt(0)).setError("Message");
         }else if(phoneNumber.isEmpty()){
             phoneNumberField.setError("Phone no required!");
             phoneNumberField.requestFocus();
@@ -180,7 +162,7 @@ public class RegistrationAvtivity extends AppCompatActivity {
 
             //If image is not selected confirm from user if he/she is sure?
             //First build a dialog
-            dialogBuilder = new AlertDialog.Builder(RegistrationAvtivity.this);
+            dialogBuilder = new AlertDialog.Builder(UserProfileActivity.this);
             dialogBuilder.setTitle("Proceed without an image?");
             //Create negative and positive responses and add click listener to them.
             dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -215,7 +197,7 @@ public class RegistrationAvtivity extends AppCompatActivity {
 
     private void uploadImage() {
         Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show();
-        dialog = new Dialog(RegistrationAvtivity.this);
+        dialog = new Dialog(UserProfileActivity.this);
         dialog.setTitle("Uploading Image");
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_wait);
@@ -258,8 +240,8 @@ public class RegistrationAvtivity extends AppCompatActivity {
                 }else{
 
                     dialog.dismiss();
-                    Toast.makeText(RegistrationAvtivity.this, "Opps! Something went wrong.",Toast.LENGTH_SHORT).show();
-                    Toast.makeText(RegistrationAvtivity.this, "Try again!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserProfileActivity.this, "Opps! Something went wrong.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserProfileActivity.this, "Try again!",Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -268,7 +250,7 @@ public class RegistrationAvtivity extends AppCompatActivity {
 
     private void uploadUserData() {
         dialog.cancel();
-        dialog = new Dialog(RegistrationAvtivity.this);
+        dialog = new Dialog(UserProfileActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_wait);
         dialog.setCanceledOnTouchOutside(false);
@@ -291,16 +273,16 @@ public class RegistrationAvtivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         dialog.cancel();
-                        Toast.makeText(RegistrationAvtivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
-                        Intent intent= new Intent(RegistrationAvtivity.this, MainActivity.class);
+                        Toast.makeText(UserProfileActivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+                        Intent intent= new Intent(UserProfileActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         dialog.cancel();
-                        Toast.makeText(RegistrationAvtivity.this, "Opps! Something went wrong.",Toast.LENGTH_SHORT).show();
-                        Toast.makeText(RegistrationAvtivity.this, "Try again.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserProfileActivity.this, "Opps! Something went wrong.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserProfileActivity.this, "Try again.",Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -309,8 +291,8 @@ public class RegistrationAvtivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(RegistrationAvtivity.this, "Opps! Something went wrong.",Toast.LENGTH_SHORT).show();
-                Toast.makeText(RegistrationAvtivity.this, "Try again.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserProfileActivity.this, "Opps! Something went wrong.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserProfileActivity.this, "Try again.",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -352,6 +334,37 @@ public class RegistrationAvtivity extends AppCompatActivity {
 
     }
 
+    private void goToMainActivity() {
+
+        Intent mainIntent = new Intent(UserProfileActivity.this,MainActivity.class);
+        startActivity(mainIntent);
+    }
+
+    private void initialiseParameters() {
+
+
+        department=findViewById(R.id.deptCategorySpinnerEdit);
+        editTextFromDate= findViewById(R.id.birthDayEdit);
+        firstNameField=findViewById(R.id.firstNameEdit);
+        lastNameField=findViewById(R.id.lastNameEdit);
+        addressField=findViewById(R.id.addressEdit);
+        phoneNumberField=findViewById(R.id.phoneNumberEdit);
+        apartmentnumberField=findViewById(R.id.apartmentNoEdit);
+        cancel=findViewById(R.id.cancelBtn);
+        saveInfo=findViewById(R.id.saveChangesBtn);
+        relativeLayoutContainingSpinner=findViewById(R.id.relativeLayoutWithSpinnerEdit);
+        clickToAddImage=findViewById(R.id.clickToAddImageEdit);
+        circleImageView=findViewById(R.id.userPicEdit);
+
+        storageReference= FirebaseStorage.getInstance().getReference();
+        databaseReference= FirebaseDatabase.getInstance().getReference();
+        mAuth= FirebaseAuth.getInstance();
+        mCurrentUser= mAuth.getCurrentUser();
+        //Setting calender on edit text
+        setDate DOB= new setDate(editTextFromDate,relativeLayoutContainingSpinner, UserProfileActivity.this);
+
+    }
+
     public void SetError(String errorMessage){
         View view = department.getSelectedView();
 
@@ -370,7 +383,7 @@ public class RegistrationAvtivity extends AppCompatActivity {
 
             // Shake the spinner to highlight that current selection
             // is invalid -- SEE COMMENT BELOW
-            Animation shake = AnimationUtils.loadAnimation(RegistrationAvtivity.this, R.anim.shake);
+            Animation shake = AnimationUtils.loadAnimation(UserProfileActivity.this, R.anim.shake);
             department.startAnimation(shake);
 
             tvInvisibleError.requestFocus();
@@ -409,6 +422,5 @@ public class RegistrationAvtivity extends AppCompatActivity {
         }
 
     }
-
 
 }
